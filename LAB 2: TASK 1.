@@ -1,0 +1,76 @@
+#include <iostream>
+using namespace std;
+   class animal{
+       public:
+            virtual void makeSound() const = 0;
+            
+    };
+    
+class Lion: public animal  {
+    public:
+   void makeSound() const override{
+        cout<<" Sheeeerrr"<<endl;
+    }
+    
+};   
+class elephant : public animal{
+    public:
+     void makeSound() const override{
+        cout<<" Trumpets"<<endl;
+    }
+    
+};
+class monkey: public animal{
+    public:
+     void makeSound() const override{
+        cout<<"Chatter"<<endl;
+    }
+};
+class bird: public animal{
+    public:
+    void makeSound() const override{
+        cout<<"ting ting ting "<<endl;
+    }
+    
+};
+void hearsound(animal &Animal){
+    Animal.makeSound();
+    
+    
+}
+
+int main(){
+    Lion bili;
+    monkey monks;
+    elephant eve;
+    bird beerd;
+    cout << "Bili says: ";
+    bili.makeSound();
+
+    cout << "Monkeys say: ";
+    monks.makeSound();
+
+    cout << "Elephant says: ";
+    eve.makeSound();
+        
+    cout<<" Bird makes sounds and says ";
+    beerd.makeSound();
+    
+    
+    hearsound(bili);
+    hearsound(monks);
+    hearsound(beerd);
+    hearsound(eve);
+    return 0;
+    
+ 
+    
+    
+    
+    
+    
+    
+    
+ 
+    
+}
