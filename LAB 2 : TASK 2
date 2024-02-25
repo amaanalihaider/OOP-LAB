@@ -1,0 +1,83 @@
+#include <iostream>
+using namespace std;
+
+class Plant {
+public:
+    virtual void grow() const = 0;
+    virtual void displayHeight() const = 0;
+}; 
+
+class Flower : public Plant {
+private:
+    double height = 0.1; // Height At the first day
+    double growth_rate = 0.2;  // by default 0.2cm per day
+    double final_height;
+
+public:
+    Flower() : final_height(height * 30) {}
+
+    void grow() const override {
+        cout << "Height on the first day is " << height << "cm. After 30 days, it will be " << final_height << "cm." << endl;
+        cout<<endl;
+    }
+
+    void displayHeight() const override {
+        cout << "Current height of the flower is: " << height << "cm." << endl;
+        cout<<endl;
+    }
+};
+
+class Tree : public Plant {
+    private:
+    double height =  1; // 0.7cm growth per day 
+    double growth =  0.7;
+    double final_height ;
+    public:
+    Tree(): final_height(height * 30 ){};
+    void grow() const override{
+        cout << "Height on the first day is " << height << "cm. After 30 days, it will be " << final_height << "cm." << endl;
+        cout<<endl;
+    }
+    void displayHeight() const override {
+        cout << "Current height of the flower is: " << height << "cm." << endl;
+        cout<<endl;
+    }
+};
+
+class Bush : public Plant {
+     private:
+    double height =  2; // 0.7cm growth per day 
+    double growth =  1.4;
+    double final_height ;
+    public:
+    Bush(): final_height(height * 30 ){};
+    void grow() const override{
+        cout << "Height on the first day is " << height << "cm. After 30 days, it will be " << final_height << "cm." << endl;
+        cout<<endl;
+    }
+    void displayHeight() const override {
+        cout << "Current height of the flower is: " << height << "cm." << endl;
+        cout<<endl;
+    }
+
+};
+
+int main() {
+    // Objects of each class
+    Flower f;
+    Tree t;
+    Bush b;
+
+   
+
+    f.grow();
+    f.displayHeight();
+
+    t.grow();
+    t.displayHeight();
+
+     b.grow();
+    b.displayHeight();
+
+    return 0;
+}
