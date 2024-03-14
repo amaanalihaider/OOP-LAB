@@ -1,0 +1,38 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+void fillVector(vector<char>& grade){
+    char user_num;  
+    int size;
+    cin>>size;
+    int i=1;
+    while(i < size){
+        cin>>user_num;
+        grade.push_back(user_num);
+        i++;
+    }
+}
+void Display(vector<char>&grade){
+for(int i = 0;i< grade.size();i++){
+    cout<<grade[i]<<" ";
+}
+cout<<endl;
+
+}
+
+int main(){
+    vector<char> grades;
+
+        fillVector(grades);
+        Display(grades);
+        cout<<endl;
+        cout<<grades.size();
+
+        grades.push_back('s');
+        // Size increased by 1 
+        cout<<endl;
+        cout<<grades.size();
+
+    return 0;
+
+}
