@@ -1,0 +1,135 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <map>
+#include <algorithm>
+
+using namespace std;
+
+class Book {
+private:
+    string title;
+    string author;
+    int publication_year;
+    bool borrowed;
+
+public:
+    // Constructor
+    Book(const string& title, const string& author, int publication_year, bool borrowed = false) :
+        title(title), author(author), publication_year(publication_year), borrowed(borrowed) {}
+
+    // Getters
+    string get_title() const { return title; }
+    string get_author() const { return author; }
+    int get_publication_year() const { return publication_year; }
+    bool is_borrowed() const { return borrowed; }
+
+    // Get all information as a dictionary
+    map<string, string> get_all_info() const {
+        map<string, string> info;
+        info["Title"] = title;
+        info["Author"] = author;
+        info["Publication Year"] = to_string(publication_year);
+        info["Borrowed"] = borrowed ? "Yes" : "No";
+        return info;
+    }
+};
+
+class Library {
+public:
+    vector<Book> books;
+
+    // Constructor
+    Library() {}
+
+    // Add book
+    void add_book(const Book& book) { books.emplace_back(book); }
+
+    // Remove book by title
+    bool remove_book(const string& title) {
+        auto it = remove_if(books.begin(), books.end(), [&](const Book& book) {
+            return book.get_title() == title;
+        });
+
+        if (it != books.end()) {
+            books.erase(it, books.end());
+            return true;
+        }
+        return false; // Book not found, return false
+    }
+
+    // List all books or only available books
+    void list_books(bool available_only = false) const {
+        if (books.empty()) {
+            cout << "No books in library." << endl;
+            return;
+        }
+
+        cout << "** Book List **" << endl;
+        for (const auto& book : books) {
+            if (!available_only || !book.is_borrowed()) {
+                cout << "Title: " << book.get_title() << endl;
+                cout << "Author: " << book.get_author() << endl;
+                cout << "Publication Year: " << book.get_publication_year() << endl;
+                cout << "Borrowed: " << (book.is_borrowed() ? "Yes" : "No") << endl << endl;
+            }
+        }
+    }
+};
+
+int main() {
+    Library library;
+    string choice;
+
+    do {
+        // Display menu options
+        cout << "Menu:" << endl;
+        cout << "1. Add a book" << endl;
+        cout << "2. Remove a book" << endl;
+        cout << "3. List all books" << endl;
+        cout << "4. Exit" << endl;
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        // User input
+        if (choice == "1") {
+            string title, author;
+            int publication_year;
+            cout << "Enter title: ";
+            cin.ignore();
+            getline(cin, title);
+            cout << "Enter author: ";
+            getline(cin, author);
+            cout << "Enter publication year: ";
+            cin >> publication_year;
+
+            Book new_book(title, author, publication_year);
+            library.add_book(new_book);
+            cout << "Book added successfully." << endl;
+        }
+        else if (choice == "2") {
+            string title;
+            cout << "Enter title of the book to remove: ";
+            cin.ignore();
+            getline(cin, title);
+            if (library.remove_book(title)) {
+                cout << "Book removed successfully." << endl;
+            }
+            else {
+                cout << "Book not found." << endl;
+            }
+        }
+        else if (choice == "3") {
+            cout << "Listing all books:" << endl;
+            library.list_books();
+        }
+        else if (choice == "4") {
+            cout << "Exiting..." << endl;
+        }
+        else {
+            cout << "Invalid choice. Please enter a number between 1 and 4." << endl;
+        }
+    } while (choice != "4");
+
+    return 0;
+}
